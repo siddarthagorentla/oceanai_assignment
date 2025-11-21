@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# Database
+data/chroma_db/
+*.sqlite3
+*.db
+
+# IDE
+.vscode/
+.idea/
