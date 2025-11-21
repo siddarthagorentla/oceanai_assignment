@@ -1,13 +1,23 @@
-# Product Specifications
+# Product Specifications - E-Shop Checkout
 
-## Discount Codes
-- The discount code `SAVE15` applies a 15% discount to the total price.
-- The discount code `FREESHIP` makes express shipping free.
+## Features
+1. **Cart Functionality**:
+   - Users can add items to the cart.
+   - Supported items: Headphones ($50), Watch ($120), Speaker ($30).
+   - Cart summary must update dynamically.
 
-## Shipping
-- Express shipping costs $10.
-- Standard shipping is free.
+2. **Discount Codes**:
+   - Code `SAVE15` applies a 15% discount on the subtotal (before shipping).
+   - Invalid codes should show an error message.
 
-## Payment
-- The "Pay Now" button is the final step to submit the order.
-- A "Payment Successful!" message should appear after a successful transaction.
+3. **Shipping**:
+   - **Standard**: Free (0$).
+   - **Express**: Flat rate of $10.
+   - Changing shipping method updates the total immediately.
+
+4. **Payment**:
+   - Supported methods: Credit Card, PayPal.
+   - Payment is processed only if all form validations pass.
+
+5. **User Details**:
+   - Name, Email, and Address are mandatory fields.
