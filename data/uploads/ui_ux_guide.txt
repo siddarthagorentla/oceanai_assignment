@@ -1,0 +1,5 @@
+UI/UX Guidelines
+
+- Form validation errors must be displayed in red text.
+- The 'Pay Now' button should be green.
+- The page title should be "E-Shop Checkout".

@@ -1,0 +1,27 @@
+{
+  "POST /apply_coupon": {
+    "description": "Validates and applies a discount coupon.",
+    "parameters": {
+      "code": "string"
+    },
+    "responses": {
+      "200": { "discount_percent": 15, "valid": true },
+      "400": { "error": "Invalid coupon code", "valid": false }
+    }
+  },
+  "POST /submit_order": {
+    "description": "Submits the final order details.",
+    "parameters": {
+      "name": "string",
+      "email": "string",
+      "address": "string",
+      "cart_items": "array",
+      "total_amount": "number",
+      "payment_method": "string"
+    },
+    "responses": {
+      "200": { "message": "Payment Successful!", "order_id": "12345" },
+      "422": { "error": "Validation Error" }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+UI/UX Guidelines for E-Shop Checkout
+
+1. **Form Validation**:
+   - Error messages must be displayed in red text (#e74c3c).
+   - Error messages should appear immediately below the invalid field.
+   - Valid fields should not show any error text.
+
+2. **Buttons**:
+   - The "Pay Now" button should be green (#27ae60) to indicate a positive action.
+   - "Add to Cart" buttons should be blue (#3498db).
+   - Buttons should have a hover effect (darker shade).
+
+3. **Feedback**:
+   - Upon successful payment, a "Payment Successful!" message must appear in green.
+   - Discount code validation messages: Green for success, Red for failure.
+
+4. **Layout**:
+   - The checkout container should be centered on the screen with a white background and a subtle shadow.
+   - The total price should be prominent, large font, and green.
