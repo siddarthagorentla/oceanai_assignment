@@ -5,203 +5,243 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Autonomous QA Agent — README</title>
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--glass:rgba(255,255,255,0.03)}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial}
-    body{background:linear-gradient(180deg,#041024 0%, #071427 60%);color:#e6eef6;line-height:1.5}
-    .container{max-width:980px;margin:28px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
-    header{display:flex;align-items:center;gap:18px}
-    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#06b6d4,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021025;font-size:28px}
-    h1{margin:0;font-size:28px}
-    .subtitle{color:var(--muted);margin-top:6px}
-    .badges{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:22px}
-    .card{background:var(--card);padding:18px;border-radius:12px}
-    pre{background:var(--glass);padding:12px;border-radius:8px;overflow:auto;color:#cfeffd}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Roboto Mono,monospace}
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#22c1c3;--glass:rgba(255,255,255,0.04)}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{background:linear-gradient(180deg,#071029 0%, #071425 100%);color:#e6eef6;line-height:1.5}
+    .wrap{max-width:1100px;margin:36px auto;padding:28px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.7);backdrop-filter:blur(6px)}
+    header{display:flex;gap:18px;align-items:center}
+    .logo{width:62px;height:62px;border-radius:12px;background:linear-gradient(135deg,#0ea5a3,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021022;box-shadow:0 6px 18px rgba(4,8,20,0.6)}
+    h1{font-size:22px;margin:0}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+    .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:var(--glass);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.02)}
+    .toc{font-size:14px;color:var(--muted)}
+    .toc a{color:inherit;text-decoration:none}
+
+    pre{background:#071426;padding:12px;border-radius:8px;overflow:auto;border:1px solid rgba(255,255,255,0.02)}
+    code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;font-size:13px}
+
+    .section{margin-bottom:18px}
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .feature{background:linear-gradient(180deg,#071126, #071726);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
     .muted{color:var(--muted)}
-    details{background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:12px;border-radius:8px}
-    summary{cursor:pointer;font-weight:600}
-    .cta{display:flex;gap:10px;margin-top:12px}
-    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px;cursor:pointer}
-    .primary{background:linear-gradient(90deg,#06b6d4,#7c3aed);border:none;color:#021025;font-weight:700}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    .actions{display:flex;gap:8px;margin-top:6px}
+    .btn{padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#0ea5a3);color:#021022;border:none;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    .tabs{display:flex;gap:6px;margin-top:12px}
+    .tab{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--muted);cursor:pointer}
+    .tab.active{background:linear-gradient(90deg, rgba(34,193,195,0.12), rgba(6,182,212,0.06));color:#dff7f7;border:1px solid rgba(34,193,195,0.12)}
+
+    .panel{margin-top:12px}
+    .collapsible{border-radius:8px;padding:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02)}
+    .collapsible summary{cursor:pointer;font-weight:600}
+
     .copy-btn{float:right;background:transparent;border:none;color:var(--muted);cursor:pointer}
-    @media(max-width:880px){.grid{grid-template-columns:1fr} .logo{width:56px;height:56px}}
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="wrap">
     <header>
       <div class="logo">QA</div>
       <div>
-        <h1>Autonomous QA Agent — README</h1>
-        <div class="subtitle">Smart, RAG-powered test case & Selenium script generation — documentation-driven automation.</div>
+        <h1>Autonomous QA Agent — Test Case & Selenium Script Generation</h1>
+        <p class="lead">An intelligent agent that builds a testing brain from project docs & HTML, then generates grounded test cases and runnable Selenium Python scripts using a RAG pipeline.</p>
         <div class="badges">
-          <img src="https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python" alt="python"/>
-          <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=flat-square&logo=fastapi" alt="fastapi"/>
-          <img src="https://img.shields.io/badge/Streamlit-Frontend-FF4B4B?style=flat-square&logo=streamlit" alt="streamlit"/>
-          <img src="https://img.shields.io/badge/Selenium-Automation-43B02A?style=flat-square&logo=selenium" alt="selenium"/>
+          <div class="badge">Python 3.9+</div>
+          <div class="badge">FastAPI</div>
+          <div class="badge">Streamlit</div>
+          <div class="badge">Selenium</div>
+          <div class="badge">RAG</div>
         </div>
       </div>
     </header>
 
     <div class="grid">
-      <main>
-        <section class="card">
+      <main class="card">
+        <section class="section">
           <h2>Overview</h2>
-          <p class="muted">This project ingests your docs and HTML, builds an internal knowledge base, and generates reliable test cases plus runnable Selenium scripts using a RAG pipeline. Outputs are grounded in uploaded files — no hallucinations.</p>
-
-          <h3 style="margin-top:16px">Features</h3>
-          <ul>
-            <li><strong>Knowledge Base Ingestion</strong> — MD, TXT, JSON, HTML &rarr; vector store.</li>
-            <li><strong>Test Case Generation</strong> — Positive &amp; negative flows generated from docs.</li>
-            <li><strong>Selenium Script Generation</strong> — Convert test cases to runnable Selenium Python scripts.</li>
-            <li><strong>RAG Pipeline</strong> — Ensures outputs are document-grounded.</li>
-          </ul>
-
-          <h3 style="margin-top:12px">Quick Start</h3>
-          <ol>
-            <li>Clone the repo</li>
-            <li>Install requirements: <code>pip install -r requirements.txt</code></li>
-            <li>Start backend: <code>uvicorn app.backend.main:app --reload --port 8000</code></li>
-            <li>Start frontend: <code>streamlit run app/frontend/ui.py</code></li>
-            <li>Open <code>http://localhost:8501</code></li>
-          </ol>
-
-          <details open>
-            <summary>Workflow (click to expand)</summary>
-            <ol style="margin-top:8px">
-              <li><strong>Upload Assets</strong> — upload <code>checkout.html</code> and support docs via the sidebar.</li>
-              <li><strong>Build Knowledge Base</strong> — process files to create embeddings.</li>
-              <li><strong>Generate Test Cases</strong> — use the Test Case Agent tab with prompts like "Generate test cases for discount code".</li>
-              <li><strong>Generate Scripts</strong> — pick a test case and click "Generate Selenium Script".</li>
-            </ol>
-          </details>
-
-          <h3 style="margin-top:12px">Project Structure</h3>
-          <pre><code>app/
- ├── backend/
- │    ├── main.py           # FastAPI API server
- │    ├── rag_engine.py     # RAG logic
- │    └── utils/            # parsing + embedding helpers
- ├── frontend/
- │    └── ui.py             # Streamlit UI
- assets/                    # sample HTML + docs
- data/                      # uploaded files + vector DB
-</code></pre>
-
-          <h3 style="margin-top:12px">Example Outputs</h3>
-          <ul>
-            <li><strong>Test Cases:</strong> Structured title, preconditions, steps, expected results, positive &amp; negative flows.</li>
-            <li><strong>Selenium Scripts:</strong> WebDriver setup, locators extracted, actions &amp; assertions — ready to run.</li>
-          </ul>
-
+          <p class="muted">This repo ingests documentation (.md, .txt, .json) and HTML to create a vector-backed knowledge base. It produces positive & negative test cases and converts them into executable Selenium scripts. Everything is grounded via Retrieval-Augmented Generation.</p>
         </section>
 
-        <section class="card" style="margin-top:16px">
-          <h2>Usage Examples</h2>
-          <div style="position:relative">
-            <button class="copy-btn" onclick="copySnippet('cli')">Copy</button>
-            <pre id="cli"><code>git clone &lt;your_repo_url&gt;
-cd &lt;project_name&gt;
+        <section class="section">
+          <h2>Features</h2>
+          <div class="features">
+            <div class="feature">📘 <strong>Knowledge Base Ingestion</strong><div class="muted">Upload docs & HTML — embeddings stored in a vector DB</div></div>
+            <div class="feature">🧪 <strong>Test Case Generation</strong><div class="muted">Positive & negative flows based on docs</div></div>
+            <div class="feature">🤖 <strong>Selenium Script Generation</strong><div class="muted">One-click convert test case → runnable Python Selenium script</div></div>
+            <div class="feature">🔎 <strong>RAG Pipeline</strong><div class="muted">Outputs are grounded in source documents to avoid hallucination</div></div>
+          </div>
+        </section>
 
-pip install -r requirements.txt
-
-# Start backend
-uvicorn app.backend.main:app --reload --port 8000
-
-# Start frontend
-streamlit run app/frontend/ui.py
-
-# Open http://localhost:8501</code></pre>
+        <section class="section">
+          <h2>Quick Start</h2>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-target="#install">Install</button>
+            <button class="tab" data-target="#run">Run</button>
+            <button class="tab" data-target="#usage">Usage</button>
           </div>
 
-          <h4 style="margin-top:12px">Sample prompt for test-case generation</h4>
-          <pre><code>Generate test cases for discount code validation including:
-- valid code (percentage)
-- expired code
-- invalid format
-- minimum cart value not met</code></pre>
+          <div id="install" class="panel">
+            <p class="muted"><strong>Prerequisites</strong>: Python 3.9+, Google Chrome (for Selenium).</p>
+            <pre><code>git clone &lt;your_repo_url&gt;
+cd &lt;project_folder&gt;
+pip install -r requirements.txt</code></pre>
+          </div>
+
+          <div id="run" class="panel" style="display:none">
+            <pre><code># Start Backend
+uvicorn app.backend.main:app --reload --port 8000
+
+# Start Frontend
+streamlit run app/frontend/ui.py
+
+# Open UI
+http://localhost:8501</code></pre>
+          </div>
+
+          <div id="usage" class="panel" style="display:none">
+            <ol>
+              <li>Upload <code>checkout.html</code> and support docs via sidebar/upload.</li>
+              <li>Click <em>Build Knowledge Base</em> to process files and create embeddings.</li>
+              <li>Go to <strong>Test Case Agent</strong> → enter prompt (e.g., "Generate test cases for discount code").</li>
+              <li>Select a test case & click <em>Generate Selenium Script</em>.</li>
+            </ol>
+          </div>
         </section>
 
-        <section class="card" style="margin-top:16px">
-          <h2>Contributing</h2>
-          <p class="muted">Contributions welcome. Open an issue for significant changes before submitting a PR. Keep changes focused and include tests for new functionality.</p>
+        <section class="section">
+          <h2>Project Structure</h2>
+          <pre><code>app/
+ ├── backend/      # FastAPI + RAG logic
+ ├── frontend/     # Streamlit UI
+assets/            # sample HTML & specs
+data/              # uploaded files & vector database
+</code></pre>
+        </section>
 
-          <h3 style="margin-top:10px">Roadmap (optional)</h3>
-          <ul>
-            <li>Repository templates for different app types</li>
-            <li>Prebuilt Selenium test templates</li>
-            <li>CI integration (GitHub Actions) to run generated scripts</li>
-            <li>Dockerized backend + frontend</li>
-          </ul>
+        <section class="section">
+          <h2>Example Outputs</h2>
+          <div class="collapsible">
+            <details>
+              <summary>Test Case (Example)</summary>
+              <pre><code>Title: Apply valid discount code
+Pre-conditions: User on checkout page, cart contains items
+Steps:
+  1. Enter code 'SAVE20' in coupon field
+  2. Click Apply
+Expected: Total reduced by 20% and success message displayed
+</code></pre>
+            </details>
+
+            <details>
+              <summary>Selenium Script (Snippet)</summary>
+              <pre><code>from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get('file:///path/to/checkout.html')
+code_input = driver.find_element(By.ID, 'coupon')
+code_input.send_keys('SAVE20')
+driver.find_element(By.ID,'apply-btn').click()
+# assert discount applied
+</code></pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Contributing</h2>
+          <p class="muted">PRs welcome. For major changes, open an issue first to discuss your plan and avoid duplicate work.</p>
+        </section>
+
+        <section class="section">
+          <h2>License</h2>
+          <p class="muted">MIT License — see <code>LICENSE</code> file.</p>
+        </section>
+
+        <section class="section">
+          <h2>Extras</h2>
+          <div class="actions">
+            <button class="btn" id="downloadBtn">Download README.html</button>
+            <button class="btn ghost" id="copyMd">Copy Markdown</button>
+          </div>
         </section>
 
       </main>
 
-      <aside>
-        <div class="card">
-          <h3>Quick Links</h3>
-          <p class="muted">Useful commands &amp; notes</p>
-          <pre><code># Install
-pip install -r requirements.txt
-
-# Backend
-uvicorn app.backend.main:app --reload --port 8000
-
-# Frontend
-streamlit run app/frontend/ui.py</code></pre>
-
-          <div style="margin-top:10px">
-            <button class="btn" onclick="document.getElementById('download').scrollIntoView({behavior:'smooth'})">Download README</button>
-            <button class="btn primary" onclick="copyToClipboard(fullHtml)">Copy full HTML</button>
-          </div>
-
-          <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)"/>
-
-          <h4>Requirements</h4>
-          <ul class="muted">
-            <li>Python 3.9+</li>
-            <li>Chrome Browser (Selenium)</li>
+      <aside class="card">
+        <h3>Table of Contents</h3>
+        <nav class="toc">
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#quick-start">Quick Start</a></li>
+            <li><a href="#project-structure">Project Structure</a></li>
+            <li><a href="#examples">Example Outputs</a></li>
+            <li><a href="#contributing">Contributing</a></li>
           </ul>
+        </nav>
 
-          <h4 style="margin-top:10px">License</h4>
-          <p class="muted">MIT License</p>
+        <div style="margin-top:12px">
+          <h4>Badges</h4>
+          <div class="badges">
+            <div class="badge">build: passing</div>
+            <div class="badge">coverage: 92%</div>
+            <div class="badge">license: MIT</div>
+          </div>
         </div>
 
-        <div class="card" style="margin-top:14px">
-          <h3>Badges</h3>
-          <div class="badges">
-            <img src="https://img.shields.io/badge/Status-Active-green?style=flat-square"/>
-            <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square"/>
-          </div>
+        <div style="margin-top:12px">
+          <h4>Quick Commands</h4>
+          <pre><code>pip install -r requirements.txt
+uvicorn app.backend.main:app --reload</code></pre>
+        </div>
+
+        <div style="margin-top:12px">
+          <h4>Authors</h4>
+          <p class="muted">Your Team — Autonomous QA Agent</p>
         </div>
       </aside>
     </div>
 
     <footer>
-      <div id="download" style="margin-top:18px"></div>
-      <small class="muted">Generated README — Autonomous QA Agent • &copy; 2025</small>
+      <div>Made with ⚙️ and ☕ — Autonomous QA Agent • <span class="muted">Generated README</span></div>
     </footer>
   </div>
 
   <script>
-    const fullHtml = `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width,initial-scale=1" />\n  <title>Autonomous QA Agent — README</title>\n</head>\n<body>\n  <!-- README content (same as displayed) -->\n</body>\n</html>`;
+    // Tabs
+    document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+      const target=document.querySelector(btn.dataset.target);
+      if(target) target.style.display='block';
+    }));
 
-    function copySnippet(id){
-      const el = document.getElementById(id);
-      if(!el) return;
-      navigator.clipboard.writeText(el.innerText).then(()=>{
-        alert('Copied to clipboard');
-      });
-    }
+    // Download file
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'README.html'; a.click();
+      URL.revokeObjectURL(url);
+    });
 
-    function copyToClipboard(text){
-      navigator.clipboard.writeText(text).then(()=>{alert('Full HTML copied to clipboard')});
-    }
-
-    // make pre/code blocks selectable for copy
-    document.querySelectorAll('pre code').forEach(block=>block.setAttribute('contenteditable', 'false'));
+    // Copy placeholder markdown (simple conversion)
+    document.getElementById('copyMd').addEventListener('click', async ()=>{
+      const md = `# Autonomous QA Agent\n\nAn intelligent, autonomous QA agent that constructs a \"testing brain\" from project documentation and HTML structure.\n\n## Features\n- Knowledge Base Ingestion\n- Test Case Generation\n- Selenium Script Generation\n- RAG Pipeline\n\n## Quick Start\n...`;
+      await navigator.clipboard.writeText(md);
+      alert('Markdown copied to clipboard (short version).');
+    });
   </script>
 </body>
 </html>
