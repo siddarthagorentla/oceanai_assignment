@@ -4,7 +4,7 @@ import json
 import os
 
 # Configuration
-BACKEND_URL = os.getenv("BACKEND_URL")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 st.set_page_config(
     page_title="Autonomous QA Agent",
