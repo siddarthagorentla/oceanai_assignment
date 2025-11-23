@@ -1,3 +1,4 @@
+
 # 🤖 Autonomous QA Agent for Test Case & Script Generation
 
 <div align="center">
@@ -63,40 +64,66 @@ The system consists of a FastAPI backend and a Streamlit frontend. You need to r
 Initialize the API server (RAG logic):
 ```bash
 uvicorn app.backend.main:app --reload --port 8000
+2. Start the Frontend
 
-### 2. Start the Frontend
-Launch the User Interface:
+Launch the User Interface in a separate terminal:
 
+code
+Bash
+download
+content_copy
+expand_less
 streamlit run app/frontend/ui.py
-
 3. Access the UI
+
 Open your browser and navigate to:
+
 http://localhost:8501
+
 🔄 Workflow
+
 Upload Assets
 Navigate to the sidebar. Upload your checkout.html and any supporting documentation (e.g., requirements docs from the assets/ folder).
+
 Build Knowledge Base
 Click the "Process Files" button. The system will generate embeddings and store them in the vector database.
+
 Generate Test Cases
 Go to the Test Case Agent tab. Enter a prompt based on your docs.
 Example: "Generate test cases for discount code validation"
+
 Generate Selenium Scripts
 Select a generated test case from the list and click "Generate Selenium Script". The agent will output ready-to-run Python code.
+
 🧪 Examples
 Generated Test Case
+
 Title: Apply valid discount code
+
 Preconditions:
+
 User is on the checkout page.
+
 Cart contains at least one item.
+
 Steps:
+
 Enter "SAVE20" in the discount field.
+
 Click the Apply button.
+
 Expected Result:
+
 Total price reduces by 20%.
+
 Success message is displayed.
+
 Generated Selenium Script
 code
 Python
+download
+content_copy
+expand_less
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -118,6 +145,9 @@ driver.quit()
 📁 Project Structure
 code
 Bash
+download
+content_copy
+expand_less
 root/
 ├── app/
 │   ├── backend/        # FastAPI app & RAG logic
@@ -127,13 +157,20 @@ root/
 ├── requirements.txt    # Python dependencies
 └── README.md           # Project documentation
 🤝 Contributing
+
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
 Fork the Project
+
 Create your Feature Branch (git checkout -b feature/AmazingFeature)
+
 Commit your Changes (git commit -m 'Add some AmazingFeature')
+
 Push to the Branch (git push origin feature/AmazingFeature)
+
 Open a Pull Request
+
 <div align="center">
-<p>Project by Siddartha Gorentla</p>
+<p>Project By Siddartha Gorentla</p>
 </div>
 ```
